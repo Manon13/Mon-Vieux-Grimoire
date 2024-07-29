@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
 
 const userRoutes = require('./routes/user');
+const bookRoutes = require('./routes/book');
 
+app.use(cors());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,5 +26,7 @@ mongoose.connect('mongodb+srv://Manon:IoeEXULfrzWDBudgzU@cluster0.qgvxpgy.mongod
 app.use(express.json());
 
 app.use('/api/auth', userRoutes);
+app.use('/api/books', bookRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;

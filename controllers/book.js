@@ -31,7 +31,6 @@ exports.createBook = (req, res, next) => {
 
 };
 
-//utiliser multer ici
 exports.modifyBook = (req, res, next) => {
     const bookObject = req.file ?
         {
@@ -43,7 +42,7 @@ exports.modifyBook = (req, res, next) => {
     Book.findOne({ _id: req.params.id })
         .then(book => {
             if (book.userId !== req.auth.userId) {
-                res.status(401).json({ error: 'Modification non autorisée !' });
+                res.status(403).json({ error: '403: unauthorized request' });
             } else {
                 Book.updateOne({ _id: req.params.id }, { ...bookObject, _id: req.params.id })
                     .then(() => res.status(200).json({ message: 'Livre modifié avec succès!' }))
@@ -57,7 +56,7 @@ exports.deleteBook = (req, res, next) => {
     Book.findOne({ _id: req.params.id })
         .then(book => {
             if (book.userId !== req.auth.userId) {
-                res.status(401).json({ error: 'Suppression non autorisée !' });
+                res.status(403).json({ error: '403: unauthorized request' });
             } else {
                 const filename = book.imageUrl.split('/images/')[1];
                 fs.unlink(`images/${filename}`, () => {
