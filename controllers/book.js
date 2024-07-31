@@ -14,6 +14,9 @@ exports.getOneBook = (req, res, next) => {
 };
 
 // exports.getBestRatingBooks = (req, res, next) => {};
+// Renvoie un tableau des 3 livres de la base de
+// données ayant la meilleure note moyenne.
+// Type: array of books
 
 exports.createBook = (req, res, next) => {
     const bookObject = JSON.parse(req.body.book);
@@ -69,4 +72,35 @@ exports.deleteBook = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-// exports.rateBook = (req, res, next) => {};
+exports.rateBook = (req, res, next) => {
+    const userId = req.body.userId;
+    const rating = req.body.rating;
+
+    // Check if rating is in range 1-5
+    if (rating < 1 || rating > 5) {
+        return res.status(400).json({ error: '400: invalid rating' });
+    }
+
+    Book.findOne({ _id: req.params.id })
+        .then(book => {
+            if (!book) {
+                return res.status(404).json({ error: 'Livre non trouvé.' });
+            }
+
+            // Check if user has already rated the book
+            if (book.ratings.some(r => r.userId === userId)) {
+                return res.status(403).json({ error: '403: unauthorized request' });
+            }
+
+            // Add rating to ratings array and update averageRating
+            book.ratings.push({ userId: userId, grade: rating });
+            const averageRating = book.ratings.reduce((acc, r) => acc + r.grade, 0) / book.ratings.length;
+
+            book.averageRating = averageRating;
+
+            book.save()
+                .then(updatedBook => res.status(200).json( updatedBook ))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+};
