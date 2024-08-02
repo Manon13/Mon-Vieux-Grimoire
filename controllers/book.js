@@ -13,46 +13,51 @@ exports.getOneBook = (req, res, next) => {
         .catch(error => res.status(404).json({ error }));
 };
 
-// exports.getBestRatingBooks = (req, res, next) => {};
-// Renvoie un tableau des 3 livres de la base de
-// données ayant la meilleure note moyenne.
-// Type: array of books
+exports.getBestRatingBooks = (req, res, next) => {
+    // return res.status(418).json({ error: "I'm a teapot" });
+    // return res.status(200).json({ message: 'getBestRatingBooks' });
+    Book.find().sort({ averageRating: -1 }).limit(3)
+        .then(books => res.status(200).json(books))
+        .catch(error => res.status(400).json({ error }));
+};
 
 exports.createBook = (req, res, next) => {
     const bookObject = JSON.parse(req.body.book);
     delete bookObject._id;
     delete bookObject.userId;
+
+    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+
     const book = new Book({
         ...bookObject,
         userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: imageUrl
     });
 
     book.save()
         .then(() => res.status(201).json({ message: 'Livre enregistré avec succès!' }))
-        .catch(error => res.status(400).json({ error }));
-
+        .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modifyBook = (req, res, next) => {
-    const bookObject = req.file ?
-        {
-            ...JSON.parse(req.body.book),
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        } : { ...req.body };
-    
+    const bookObject = req.file ? {
+        ...JSON.parse(req.body.book),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...req.body };
+
     delete bookObject._userId;
+
     Book.findOne({ _id: req.params.id })
-        .then(book => {
+        .then((book) => {
             if (book.userId !== req.auth.userId) {
                 res.status(403).json({ error: '403: unauthorized request' });
             } else {
                 Book.updateOne({ _id: req.params.id }, { ...bookObject, _id: req.params.id })
                     .then(() => res.status(200).json({ message: 'Livre modifié avec succès!' }))
-                    .catch(error => res.status(400).json({ error }));
+                    .catch((error) => res.status(400).json({ error }));
             }
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch((error) => res.status(500).json({ error }));
 };
 
 exports.deleteBook = (req, res, next) => {
@@ -99,7 +104,7 @@ exports.rateBook = (req, res, next) => {
             book.averageRating = averageRating;
 
             book.save()
-                .then(updatedBook => res.status(200).json( updatedBook ))
+                .then(updatedBook => res.status(200).json(updatedBook))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
