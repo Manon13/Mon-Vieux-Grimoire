@@ -101,7 +101,7 @@ exports.rateBook = (req, res, next) => {
             book.ratings.push({ userId: userId, grade: rating });
             const averageRating = book.ratings.reduce((acc, r) => acc + r.grade, 0) / book.ratings.length;
 
-            book.averageRating = averageRating;
+            book.averageRating = parseFloat(averageRating.toFixed(1));
 
             book.save()
                 .then(updatedBook => res.status(200).json(updatedBook))
