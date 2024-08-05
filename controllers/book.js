@@ -14,8 +14,6 @@ exports.getOneBook = (req, res, next) => {
 };
 
 exports.getBestRatingBooks = (req, res, next) => {
-    // return res.status(418).json({ error: "I'm a teapot" });
-    // return res.status(200).json({ message: 'getBestRatingBooks' });
     Book.find().sort({ averageRating: -1 }).limit(3)
         .then(books => res.status(200).json(books))
         .catch(error => res.status(400).json({ error }));
