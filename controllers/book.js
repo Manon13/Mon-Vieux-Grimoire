@@ -81,7 +81,7 @@ exports.rateBook = (req, res, next) => {
     const userId = req.body.userId;
     const rating = req.body.rating;
 
-    // Check if rating is in range 1-5
+    // Vérifier que le rating est compris entre 1 et 5
     if (rating < 1 || rating > 5) {
         return res.status(400).json({ error: '400: invalid rating' });
     }
@@ -92,12 +92,12 @@ exports.rateBook = (req, res, next) => {
                 return res.status(404).json({ error: 'Livre non trouvé.' });
             }
 
-            // Check if user has already rated the book
+            // Vérifier que l'utilisateur n'a pas déjà noté le livre
             if (book.ratings.some(r => r.userId === userId)) {
                 return res.status(403).json({ error: '403: unauthorized request' });
             }
 
-            // Add rating to ratings array and update averageRating
+            // Ajout du rating à la liste des ratings et calcul de la moyenne
             book.ratings.push({ userId: userId, grade: rating });
             const averageRating = book.ratings.reduce((acc, r) => acc + r.grade, 0) / book.ratings.length;
 
