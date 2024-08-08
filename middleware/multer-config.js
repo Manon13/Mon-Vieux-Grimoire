@@ -7,7 +7,14 @@ const path = require('path');
 const storage = multer.memoryStorage();
 const upload = multer({ storage }).single('image');
 
-// Middleware pour compresser les images
+
+/**
+ * Middleware pour compresser les images
+ * 
+ * @param {Object} req - L'objet représentant la requête
+ * @param {Object} res - L'objet représentant la réponse
+ * @param {Function} next - La fonction à appeler après le middleware
+ */
 const resizeImage = async (req, res, next) => {
     
     if (!req.file) {

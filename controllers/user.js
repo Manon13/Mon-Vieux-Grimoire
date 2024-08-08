@@ -1,7 +1,16 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+require('dotenv').config();
 
+
+/**
+ * Gère l'inscription d'un utilisateur et le chiffrement du mot de passe
+ * 
+ * @param {Object} req - L'objet représentant la requête
+ * @param {Object} res - L'objet représentant la réponse
+ * @param {Function} next - La fonction à appeler après le middleware
+ */
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -16,6 +25,15 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+
+/**
+ * Gère la connexion d'un utilisateur en vériiant l'email et le mot de passe
+ * et en renvoyant un token d'authentification
+ * 
+ * @param {Object} req - L'objet représentant la requête
+ * @param {Object} res - L'objet représentant la réponse
+ * @param {Function} next - La fonction à appeler après le middleware
+*/
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {
