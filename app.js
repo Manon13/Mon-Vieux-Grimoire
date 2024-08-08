@@ -1,8 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+
+console.log('MongoDB URI:', process.env.MONGODB_URI);
 
 const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/book');
@@ -16,7 +19,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect('mongodb+srv://Manon:IoeEXULfrzWDBudgzU@cluster0.qgvxpgy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch((error) => {
     console.error('Connexion à MongoDB échouée !', error.message);
