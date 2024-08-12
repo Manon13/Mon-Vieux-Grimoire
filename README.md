@@ -61,7 +61,7 @@ Installation de dotenv:
 
 ### Configuration 
 Créer un fichier .env à la racine du projet et ajoutez-y les variables suivantes: 
-```
+```bash
 MONGODB_URI="db_uri"
 
 JWT_SECRET_TOKEN="token_secret"
