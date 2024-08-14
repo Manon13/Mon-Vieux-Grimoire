@@ -1,9 +1,8 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const mongoose = require('mongoose');
 const path = require('path');
+require('./database');
 
 const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/book');
@@ -16,13 +15,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
-
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch((error) => {
-    console.error('Connexion à MongoDB échouée !', error.message);
-    console.error('Erreur complète:', error);
-  });
 
 app.use(express.json());
 
