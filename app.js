@@ -5,8 +5,6 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 
-console.log('MongoDB URI:', process.env.MONGODB_URI);
-
 const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/book');
 

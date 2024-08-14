@@ -44,8 +44,6 @@ const resizeImage = async (req, res, next) => {
             .webp({ quality: 20 })
             .toFile(filePath);
 
-        console.log('Image saved as WebP:', filePath);
-
         // Mettre à jour req.file.filename pour qu'il soit utilisé dans le contrôleur
         req.file.filename = ref;
         next();
