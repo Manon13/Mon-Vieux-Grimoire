@@ -1,6 +1,19 @@
+![Node.js](https://img.shields.io/static/v1?label=Node.js&message=v20.15.1&color=blue)
+![Express](https://img.shields.io/static/v1?label=Express&message=v4.19.2&color=blue)
+![MongoDB](https://img.shields.io/static/v1?label=MongoDB&message=v6.8.0&color=green)
+![Mongoose](https://img.shields.io/static/v1?label=Mongoose&message=v8.5.1&color=blue)
+![Bcrypt](https://img.shields.io/static/v1?label=Bcrypt&message=v5.1.1&color=blue)
+![JWT](https://img.shields.io/static/v1?label=JWT&message=v9.0.2&color=blue)
+![cors](https://img.shields.io/static/v1?label=cors&message=v2.8.5&color=blue)
+![dotenv](https://img.shields.io/static/v1?label=dotenv&message=v16.4.5&color=blue)
+![mongoose-unique-validator](https://img.shields.io/static/v1?label=mongoose-unique-validator&message=v5.0.1&color=blue)
+![multer](https://img.shields.io/static/v1?label=multer&message=v1.4.5-lts.1&color=blue)
+![sharp](https://img.shields.io/static/v1?label=sharp&message=v0.33.4&color=blue)
+
 # API pour le site Mon Vieux Grimoire 
 
 Cette API fournit des fonctionnalités pour gérer les livres d'un site de notation de livres. 
+
 
 ## Table des matières
 
@@ -31,33 +44,6 @@ Installation des dépendances du projet:
 
 Installation des outils de développement (optionnel)
 `npm install -g nodemon`
-
-Installation du framework Express:
-`npm install express --save`
-
-Installation de mongoose
-`npm install mongoose`
-
-Installation de l'unique validator de mongoose:
-`npm install mongoose-unique-validator`
-
-Installation de bcrypt:
-`npm install bcrypt --save`
-
-Installation de Json Web Tokens:
-`npm install jsonwebtoken`
-
-Installation de multer:
-`npm install --save multer`
-
-Installation de CORS:
-`npm install cors --save`
-
-Installation de sharp:
-`npm install sharp`
-
-Installation de dotenv:
-`npm install @dotenvx/dotenvx -g`
 
 ### Configuration 
 Créer un fichier .env à la racine du projet et ajoutez-y les variables suivantes: 
