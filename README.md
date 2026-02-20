@@ -2,7 +2,7 @@
 ![Express](https://img.shields.io/static/v1?label=Express&message=v4.19.2&color=blue)
 ![MongoDB](https://img.shields.io/static/v1?label=MongoDB&message=v6.8.0&color=green)
 ![Mongoose](https://img.shields.io/static/v1?label=Mongoose&message=v8.5.1&color=blue)
-![Bcrypt](https://img.shields.io/static/v1?label=Bcrypt&message=v5.1.1&color=blue)
+![Bcrypt](https://img.shields.io/static/v1?label=Bcrypt&message=v6.0.0&color=blue)
 ![JWT](https://img.shields.io/static/v1?label=JWT&message=v9.0.2&color=blue)
 ![cors](https://img.shields.io/static/v1?label=cors&message=v2.8.5&color=blue)
 ![dotenv](https://img.shields.io/static/v1?label=dotenv&message=v16.4.5&color=blue)
